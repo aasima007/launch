@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Launch</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #0a0a0a;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .launch-btn {
+      position: relative;
+      padding: 18px 50px;
+      font-size: 20px;
+      font-weight: bold;
+      color: white;
+      background: linear-gradient(135deg, #ff6b00, #ff0080);
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      box-shadow: 0 0 30px rgba(255, 100, 0, 0.5);
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+
+    .launch-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 50px rgba(255, 100, 0, 0.8);
+    }
+
+    .launch-btn:active {
+      transform: scale(0.97);
+    }
+
+    .launch-btn::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -60%;
+      width: 60%;
+      height: 200%;
+      background: rgba(255,255,255,0.15);
+      transform: skewX(-20deg);
+      transition: left 0.4s ease;
+    }
+
+    .launch-btn:hover::after {
+      left: 130%;
+    }
+
+    /* Countdown overlay */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #0a0a0a;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 999;
+    }
+
+    .overlay.active {
+      display: flex;
+    }
+
+    .countdown {
+      font-size: 120px;
+      font-weight: 900;
+      color: white;
+      animation: pulse 1s ease-in-out infinite;
+    }
+
+    .launch-text {
+      font-size: 28px;
+      color: #ff6b00;
+      letter-spacing: 4px;
+      margin-top: 20px;
+      text-transform: uppercase;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.7; }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="launch-btn" onclick="startLaunch()">🚀 Launch</button>
+
+  <div class="overlay" id="overlay">
+    <div class="countdown" id="countdown">3</div>
+    <div class="launch-text">Launching Valaidhalam...</div>
+  </div>
+
+  <script>
+    function startLaunch() {
+      const overlay = document.getElementById('overlay');
+      const countdownEl = document.getElementById('countdown');
+      overlay.classList.add('active');
+
+      let count = 3;
+
+      const timer = setInterval(() => {
+        count--;
+
+        if (count === 0) {
+          countdownEl.textContent = '🚀';
+          clearInterval(timer);
+          setTimeout(() => {
+            window.location.href = 'https://www.valaidhalam.com';
+          }, 800);
+        } else {
+          countdownEl.textContent = count;
+        }
+      }, 1000);
+    }
+  </script>
+
+</body>
+</html>
